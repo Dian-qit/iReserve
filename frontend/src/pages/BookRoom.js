@@ -56,11 +56,10 @@ const BookRoom = () => {
         }
     }
 
-    // Function passed to the BookingForm to call on success
+
     const handleBookingSuccess = () => {
-        // Re-run the fetch logic to update the list of bookings and room availability status
         fetchData();
-        // You can also show a quick success message here
+
         console.log("Booking successful. Refreshing data...");
     }
 

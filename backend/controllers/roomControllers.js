@@ -45,7 +45,7 @@ const bubbleSortRooms = (rooms) => {
             }
         }
     } while (swapped);
-    // 
+    
     return rooms;
 };
 
@@ -54,8 +54,8 @@ const getRooms = async (req, res) => {
     const rooms = await Room.find({})
 
     const sortedRooms = bubbleSortRooms(rooms);
-    
-    res.status(200).json(rooms)
+
+    res.status(200).json(sortedRooms)
 }
 
 //get a single room

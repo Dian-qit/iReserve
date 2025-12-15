@@ -23,6 +23,7 @@ const Home = () => {
 
     return (
         <div className="home">
+          
             {isPending && <div>Loading...</div>}
             <div className="rooms">
                 {rooms && rooms.map((room) => (

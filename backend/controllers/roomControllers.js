@@ -1,10 +1,60 @@
 const Room = require('../models/roomModel')
+const Booking = require('../models/bookingModel')
 const mongoose = require('mongoose')
+
+const now = () => new Date()
+
+const syncRoomAvailability = async (roomId) => {
+    const nowDate = now();
+    
+    // Find any active booking for the given room ID
+    const activeBooking = await Booking.findOne({
+        room: roomId,
+        startTime: { $lte: nowDate },
+        endTime: { $gt: nowDate }
+    });
+
+    // Fetch the room to update
+    const room = await Room.findById(roomId);
+
+    if (room) {
+        const isCurrentlyAvailable = !activeBooking;
+        if (room.isAvailable !== isCurrentlyAvailable) {
+            room.isAvailable = isCurrentlyAvailable;
+            await room.save();
+        }
+        return isCurrentlyAvailable;
+    }
+    return true; 
+}
+
+// bubble
+const bubbleSortRooms = (rooms) => {
+    const n = rooms.length;
+    let swapped;
+
+    do {
+        swapped = false;
+        for (let i = 0; i < n - 1; i++) {
+            const name1 = rooms[i].roomName;
+            const name2 = rooms[i + 1].roomName;
+
+            if (name1.localeCompare(name2) > 0) {
+                [rooms[i], rooms[i + 1]] = [rooms[i + 1], rooms[i]];
+                swapped = true;
+            }
+        }
+    } while (swapped);
+    // 
+    return rooms;
+};
 
 // get all rooms
 const getRooms = async (req, res) => {
-    const rooms = await Room.find({}).sort({ createdAt: -1 })
+    const rooms = await Room.find({})
 
+    const sortedRooms = bubbleSortRooms(rooms);
+    
     res.status(200).json(rooms)
 }
 
@@ -19,6 +69,8 @@ const getRoom = async (req, res) => {
     if (!room) {
         return res.status(404).json({ error: 'No such room' })
     }
+
+    await syncRoomAvailability(id);
 
     res.status(200).json(room)
 }
@@ -63,11 +115,13 @@ const updateRoom = async (req, res) => {
 
     const room = await Room.findOneAndUpdate({_id: id}, {
         ...req.body
-    })
+    }, {new: true})
 
     if (!room) {
         return res.status(400).json({ error: 'No such room' })
     }   
+
+    await syncRoomAvailability(id);
 
     res.status(200).json(room)
 

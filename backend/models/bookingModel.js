@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const bookingSchema = new Schema({
   room: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Room',
     required: true
   },
@@ -12,11 +12,12 @@ const bookingSchema = new Schema({
     type: String,
     required: true
   },
-  startDate: {
+  // store start and end time as Date objects (clients should send ISO strings)
+  startTime: {
     type: Date,
     required: true
   },
-  endDate: {
+  endTime: {
     type: Date,
     required: true
   }

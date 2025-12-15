@@ -16,7 +16,7 @@ code {
   justify-content: left;
   align-items: center;
   padding: 1rem;
-  background-color: #121212;
+  
   height: 100;
 }
 
@@ -38,4 +38,19 @@ code {
   margin-bottom: 1rem;
   border-radius: 8px;
   color: white;
+}
+
+
+/* Booking details niggaaaa */
+.booking-details {
+  background-color: #3b3f46;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  color: white;
+}
+
+.bookings{
+  display: flex;
+  flex-direction: row;
 }

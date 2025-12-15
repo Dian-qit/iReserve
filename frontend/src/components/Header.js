@@ -4,7 +4,9 @@ const Header = () => {
     return (
         <header>
             <div className="container">
-                <h1>iReserve</h1>
+                <Link to="/">
+                    <h1>iReserve</h1>
+                </Link>
                 <p>Reserve your desired room daw</p>
                 
             </div>

@@ -62,9 +62,8 @@ const BookingForm = ({ roomId, roomName, onBookingSuccess }) => {
 
     return (
         <form className="create" onSubmit={handleSubmit}>
-            <h3>New Booking for: {roomName}</h3>
+            <h3>Book {roomName}</h3>
 
-            {/* Room ID is displayed/used internally, not edited by the user */}
             <input type="hidden" value={roomId} />
 
             <label>User Name:</label>

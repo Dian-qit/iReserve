@@ -91,16 +91,18 @@ const BookRoom = () => {
 
 
             <div className="booking-container">
-                <h3>Today's Bookings</h3> 
-                <div className="bookings">
-                    
-                    {bookings && bookings.length > 0 ? (
-                        bookings.map((booking) => (
-                            <BookingDetails key={booking._id} booking={booking} onDeleteSuccess={fetchData} />
-                        ))
-                    ) : (
-                        <p>No bookings found for this room today.</p>
-                    )}
+                <div className="booking-list">
+                    <h3>Today's Bookings</h3> 
+                    <div className="bookings">
+                        
+                        {bookings && bookings.length > 0 ? (
+                            bookings.map((booking) => (
+                                <BookingDetails key={booking._id} booking={booking} onDeleteSuccess={fetchData} />
+                            ))
+                        ) : (
+                            <p>No bookings found for this room today.</p>
+                        )}
+                    </div>
                 </div>
                 
                 <BookingForm 

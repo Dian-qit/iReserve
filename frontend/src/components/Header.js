@@ -4,10 +4,12 @@ const Header = () => {
     return (
         <header>
             <div className="container">
-                <Link to="/">
-                    <h1>iReserve</h1>
-                </Link>
-                <p>Reserve your desired room daw</p>
+                <div className="header">
+                    <Link to="/">
+                        <h1>iRESERVE</h1>
+                    </Link>
+                    <p>Reserve your desired room daw</p>
+                </div>
                 
             </div>
         </header>
